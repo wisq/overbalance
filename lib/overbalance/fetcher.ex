@@ -6,7 +6,7 @@ defmodule Overbalance.Fetcher do
     |> extract_playtimes
   end
 
-  defp get_overwatch_url(tag) do
+  def get_overwatch_url(tag) do
     [name, number] = String.split(tag, "#", parts: 2)
     # FIXME add other regions, maybe platforms?
     "https://playoverwatch.com/en-us/career/pc/us/#{name}-#{number}"
@@ -16,7 +16,7 @@ defmodule Overbalance.Fetcher do
     HTTPoison.get!(url).body
   end
 
-  defp extract_playtimes(html) do
+  def extract_playtimes(html) do
     [:quickplay, :competitive]
     |> Enum.map(fn(t) -> {t, extract_playtimes_for(t, html)} end)
   end
