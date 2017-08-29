@@ -40,6 +40,7 @@ defmodule Overbalance.Mixfile do
       {:cowboy, "~> 1.0"},
       {:httpoison, "~> 0.13"},
       {:floki, "~> 0.18.0"},
+      {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
     ]
   end
 end
