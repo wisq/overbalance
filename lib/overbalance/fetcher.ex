@@ -22,6 +22,7 @@ defmodule Overbalance.Fetcher do
   def extract_playtimes(html) do
     [:quickplay, :competitive]
     |> Enum.map(fn(t) -> {t, extract_playtimes_for(t, html)} end)
+    |> Map.new
   end
 
   @guid "overwatch.guid.0x0860000000000021"
@@ -30,6 +31,7 @@ defmodule Overbalance.Fetcher do
     html
     |> Floki.find(~s/##{type} *[data-category-id="#{@guid}"] .bar-text/)
     |> Enum.map(&character_playtime/1)
+    |> Map.new
   end
 
   defp character_playtime(node) do
