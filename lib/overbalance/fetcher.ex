@@ -1,8 +1,15 @@
 defmodule Overbalance.Fetcher do
+  defmodule Request do
+    def get(url) do
+      HTTPoison.get!(url).body
+    end
+  end
+
+
   def fetch(tag) do
     tag
     |> get_overwatch_url
-    |> fetch_html
+    |> Request.get
     |> extract_playtimes
   end
 
@@ -10,10 +17,6 @@ defmodule Overbalance.Fetcher do
     [name, number] = String.split(tag, "#", parts: 2)
     # FIXME add other regions, maybe platforms?
     "https://playoverwatch.com/en-us/career/pc/us/#{name}-#{number}"
-  end
-
-  defp fetch_html(url) do
-    HTTPoison.get!(url).body
   end
 
   def extract_playtimes(html) do

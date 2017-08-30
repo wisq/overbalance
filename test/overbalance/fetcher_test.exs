@@ -1,5 +1,6 @@
 defmodule Overbalance.FetcherTest do
   use ExUnit.Case, async: true
+  import Mock
 
   alias Overbalance.Fetcher
 
@@ -59,6 +60,16 @@ defmodule Overbalance.FetcherTest do
       [quickplay: @basic_quickplay_data, competitive: []]
     assert Fetcher.extract_playtimes(@basic_competitive_html) ==
       [quickplay: [], competitive: @basic_competitive_data]
+  end
+
+  test "fetches HTML from URL" do
+    url = "https://playoverwatch.com/en-us/career/pc/us/ABC-123"
+    html = @basic_quickplay_html <> @basic_competitive_html
+    with_mock Fetcher.Request, [get: fn(^url) -> html end] do
+      assert Fetcher.fetch("ABC#123") ==
+        [quickplay: @basic_quickplay_data, competitive: @basic_competitive_data]
+      assert called Fetcher.Request.get(url)
+    end
   end
 
   # Snapshot as of 2017-08-29 00:28 EDT.
