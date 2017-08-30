@@ -33,18 +33,17 @@ defmodule OverbalanceWeb.PageControllerTest do
   </div>
 </div>
 """
-  @test_data [
-    quickplay: [
-      {"Mei",  1*3600},
-      {"D.Va", 2*3600},
-    ],
-    competitive: [
-      {"Zarya",   4*60},
-      {"Winston", 4},
-    ],
-  ]
+  @test_data %{
+    "quickplay" => %{
+      "Mei"  => 1*3600,
+      "D.Va" => 2*3600,
+    },
+    "competitive" => %{
+      "Zarya"   => 4*60,
+      "Winston" => 4,
+    },
+  }
 
-  @tag :skip
   test "GET /playtimes", %{conn: conn} do
     url = "https://playoverwatch.com/en-us/career/pc/us/xyz-321"
     with_mock Overbalance.Fetcher.Request, [get: fn(^url) -> @test_html end] do
