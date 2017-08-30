@@ -1,1 +1,11 @@
 /* This file is for your main application css. */
+
+.hero {
+	border: 1px solid black;
+	margin: 10px;
+}
+
+.hero > div {
+	display: inline-block;
+	width: 24%;
+}
