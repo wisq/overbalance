@@ -41,6 +41,7 @@ defmodule Overbalance.Mixfile do
       {:httpoison, "~> 0.13"},
       {:floki, "~> 0.18.0"},
       {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
+      {:mock, "~> 0.2.0", only: :test},
     ]
   end
 end
